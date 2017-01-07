@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { range } from 'lodash';
 import './App.css';
+
+import ComponentImagesScrollingContainer from './components/ComponentImagesScrollingContainer';
+import ComponentImageTile from './components/ComponentImageTile';
+
+import SceneImageContainer from './components/SceneImageContainer';
+import SceneImageMarker from './components/SceneImageMarker';
+
+const testImageUrl = 'https://s3-us-west-2.amazonaws.com/wallpapr/images/bellagio_fountain_show-wallpaper-1920x1200.jpg';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ComponentImagesScrollingContainer style={ {
+            height: 400,
+            overflowY: 'auto'
+        } }>
+          {
+            range(10).map((n) => (
+              <ComponentImageTile title="image 1"
+                                  subtitle="cool"
+                                  imageSrc={ testImageUrl }
+                                  key={ n }
+              />
+            ))
+          }
+        </ComponentImagesScrollingContainer>
+        <SceneImageContainer src={ testImageUrl }>
+          <SceneImageMarker xPos={ 50 } yPos={ 50 }/>
+          <SceneImageMarker xPos={ 25 } yPos={ 25 }/>
+        </SceneImageContainer>
       </div>
     );
   }
